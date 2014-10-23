@@ -1,4 +1,4 @@
-|Stories in Progress|
+|Build Status| |Coverage Status| |Stories in Progress|
 
 **********************
 pyramid_sacrud_gallery
@@ -48,6 +48,10 @@ License
 The project is licensed under the MIT license.
 
 
+.. |Build Status| image:: https://travis-ci.org/ITCase/pyramid_sacrud_gallery.svg
+   :target: https://travis-ci.org/ITCase/pyramid_sacrud_gallery
+.. |Coverage Status| image:: https://img.shields.io/coveralls/ITCase/pyramid_sacrud_gallery.svg
+   :target: https://coveralls.io/r/ITCase/pyramid_sacrud_gallery
 .. |Stories in Progress| image:: https://badge.waffle.io/ITCase/pyramid_sacrud_gallery.svg?label=ready&title=Ready
    :target: https://waffle.io/ITCase/pyramid_sacrud_gallery
    :alt: 'Stories in Ready'
