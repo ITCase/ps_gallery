@@ -10,18 +10,18 @@ from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
 
-from .models import DBSession, Gallery
+# from .models import DBSession, Gallery
 
 
-@view_config(route_name='home', renderer='templates/gallery.pt')
-def gallery_view(request):
-    try:
-        gallery = DBSession.query(Gallery).filter(
-            Gallery.name == 'Best gallery').first()
-    except DBAPIError:
-        return Response(conn_err_msg, content_type='text/plain',
-                        status_int=500)
-    return {'gallery': gallery, 'project': 'pyramid_sacrud_gallery'}
+# @view_config(route_name='home', renderer='templates/gallery.pt')
+# def gallery_view(request):
+#     try:
+#         gallery = DBSession.query(Gallery).filter(
+#             Gallery.name == 'Best gallery').first()
+#     except DBAPIError:
+#         return Response(conn_err_msg, content_type='text/plain',
+#                         status_int=500)
+#     return {'gallery': gallery, 'project': 'pyramid_sacrud_gallery'}
 
 
 conn_err_msg = """\
