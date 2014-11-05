@@ -1,4 +1,4 @@
-|Build Status| |Coverage Status| |Stories in Progress|
+|Build Status| |Coverage Status| |Code Health| |Stories in Progress|
 
 **********************
 pyramid_sacrud_gallery
@@ -16,11 +16,11 @@ github
 
     pip install git+https://github.com/ITCase/pyramid_sacrud_gallery.git
 
-current develop version
+latest stable version
 
 .. code-block:: bash
 
-    pip install git+https://github.com/ITCase/pyramid_sacrud_gallery@develop
+    pip install git+https://github.com/ITCase/pyramid_sacrud_gallery@master
 
 source
 ------
@@ -50,8 +50,10 @@ The project is licensed under the MIT license.
 
 .. |Build Status| image:: https://travis-ci.org/ITCase/pyramid_sacrud_gallery.svg
    :target: https://travis-ci.org/ITCase/pyramid_sacrud_gallery
-.. |Coverage Status| image:: https://img.shields.io/coveralls/ITCase/pyramid_sacrud_gallery.svg
-   :target: https://coveralls.io/r/ITCase/pyramid_sacrud_gallery
+.. |Coverage Status| image:: https://coveralls.io/repos/ITCase/pyramid_sacrud_gallery/badge.png?branch=develop
+   :target: https://coveralls.io/r/ITCase/pyramid_sacrud_gallery?branch=develop
+.. |Code Health| image:: https://landscape.io/github/ITCase/pyramid_sacrud_gallery/develop/landscape.png
+   :target: https://landscape.io/github/ITCase/pyramid_sacrud_gallery/develop
 .. |Stories in Progress| image:: https://badge.waffle.io/ITCase/pyramid_sacrud_gallery.svg?label=ready&title=Ready
    :target: https://waffle.io/ITCase/pyramid_sacrud_gallery
    :alt: 'Stories in Ready'
