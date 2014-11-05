@@ -49,7 +49,11 @@ def add_galleries(session):
     ]
     items = []
     for x in xrange(1, 10):
-        items.append({'pk': x, 'path': 'image/%s.jpg' % x, 'gallery_id': 1})
+        items.append({
+            'pk': x,
+            'path': 'image/%s.jpg' % x,
+            'description': 'This is image with name "%s"' % x,
+            'gallery_id': 1})
     add_fixtures(Gallery, galleries, session)
     add_fixtures(GalleryItem, items, session)
 

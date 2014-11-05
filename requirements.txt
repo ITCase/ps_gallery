@@ -1,7 +1,7 @@
 pyramid
-pyramid_chameleon
+pyramid_beaker
+pyramid_jinja2==1.10
+pyramid_sacrud
 pyramid_tm
-SQLAlchemy
-transaction
+sqlalchemy
 zope.sqlalchemy
-waitress
