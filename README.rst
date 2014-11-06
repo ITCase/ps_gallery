@@ -38,9 +38,7 @@ or `waffle board <https://waffle.io/ITCase/pyramid_sacrud_gallery>`_.
 
 We welcome any contribution: suggestions, ideas, commits with new futures, bug fixes, refactoring, docs, tests, translations etc
 
-If you know Flask framework, it would be nice create connector to him like this.
-
-If you have question, contact me po.zelenin@itcase.pro
+If you have question, contact me po.zelenin@itcase.pro or IRC channel #sacrud
 
 License
 =======
