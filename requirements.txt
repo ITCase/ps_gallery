@@ -1,3 +1,4 @@
 pyramid
-pyramid_sacrud
 sqlalchemy
+
+git+https://github.com/ITCase/pyramid_sacrud.git
