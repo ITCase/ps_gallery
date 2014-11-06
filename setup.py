@@ -47,4 +47,8 @@ setup(
         "Topic :: Internet",
         "Topic :: Database",
     ],
+    entry_points="""\
+    [paste.app_factory]
+    main = pyramid_sacrud_gallery:main
+    """,
 )

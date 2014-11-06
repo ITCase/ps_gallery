@@ -5,4 +5,4 @@
 #
 # Distributed under terms of the MIT license.
 
-TEST_DATABASE_CONNECTION_STRING = 'sqlite://'
+TEST_DATABASE_CONNECTION_STRING = 'sqlite:///:memory:'
