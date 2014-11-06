@@ -6,6 +6,7 @@ language: python
 
 notifications:
   email: 'po.zelenin@gmail.com'
+  irc: "chat.freenode.net#sacrud"
 
 python:
   - '2.7'
