@@ -10,8 +10,7 @@ from sqlalchemy.orm import foreign, relationship, remote
 from sqlalchemy.schema import ForeignKey
 
 
-class GalleryMixin(object):
-    name = Column(String, nullable=False)
+class BaseMixin(object):
 
     @classmethod
     def get_pk(cls):
@@ -27,26 +26,20 @@ class GalleryMixin(object):
         return cls.__name__.lower()
 
 
-class GalleryItemMixin(object):
+class GalleryMixin(BaseMixin):
+    name = Column(String, nullable=False)
+
+    def __repr__(self):
+        return self.name
+
+
+class GalleryItemMixin(BaseMixin):
     path = Column(String, nullable=False)
     description = Column(Text)
 
     @classmethod
-    def get_pk(cls):
-        return getattr(cls, 'pyramid_sacrud_gallery_item_pk', 'id')
-
-    @classmethod
-    def get_db_pk(cls):
-        pk = getattr(cls, cls.get_pk())
-        return pk.name or cls.get_pk()
-
-    @classmethod
     def get_parent_class(cls):
         return getattr(cls, 'pyramid_sacrud_gallery', GalleryMixin)
-
-    @declared_attr
-    def __tablename__(cls):
-        return cls.__name__.lower()
 
     @declared_attr
     def gallery_id(cls):
