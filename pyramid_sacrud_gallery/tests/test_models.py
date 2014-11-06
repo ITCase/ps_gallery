@@ -33,7 +33,7 @@ class Gallery(Base, GalleryMixin):
 class GalleryItem(Base, GalleryItemMixin):
 
     pk = Column('id', Integer, primary_key=True)
-    pyramid_sacrud_gallery_item_pk = 'pk'
+    pyramid_sacrud_gallery_pk = 'pk'
 
     pyramid_sacrud_gallery = Gallery
 
