@@ -6,4 +6,4 @@
 
 
 def includeme(config):
-    config.add_route('sacrud_gallery_view', '/{slug}')
+    config.add_route('sacrud_gallery_view', '/gallery/{id}')

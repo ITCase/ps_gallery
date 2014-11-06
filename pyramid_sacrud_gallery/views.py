@@ -16,12 +16,10 @@ from .common import get_model_by_name
              permission=NO_PERMISSION_REQUIRED)
 def gallery_view(request):
     dbsession = request.dbsession
-    slug = request.matchdict['slug']
+    id = request.matchdict['id']
     gallery_table = get_model_by_name(request.registry.settings, 'Gallery')
-    gallery_pk_field = getattr(gallery_table, gallery_table.get_pk())
     gallery_instance = dbsession.query(gallery_table).filter(
-        gallery_pk_field == slug).one()
-    context = {
+        gallery_table.get_col_pk() == id).one()
+    return {
         'gallery': gallery_instance,
     }
-    return context
