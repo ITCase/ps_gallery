@@ -25,6 +25,9 @@ class BaseMixin(object):
     def get_col_pk(cls):
         return getattr(cls, cls.get_pk())
 
+    def get_val_pk(self):
+        return getattr(self, self.get_pk())
+
     @declared_attr
     def __tablename__(cls):
         return cls.__name__.lower()
