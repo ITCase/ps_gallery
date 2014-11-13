@@ -4,10 +4,16 @@
 #
 # Distributed under terms of the MIT license.
 
-from sqlalchemy import Column, Integer, String, Text
+import os
+
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import relationship
-from sqlalchemy.schema import ForeignKey
+from sqlalchemy.schema import Column, ForeignKey
+from sqlalchemy.types import CHAR, Integer, String, Text
+
+from sacrud.exttype import FileStore
+
+file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static')
 
 
 class BaseMixin(object):
@@ -24,6 +30,10 @@ class BaseMixin(object):
     @classmethod
     def get_col_pk(cls):
         return getattr(cls, cls.get_pk())
+
+    @classmethod
+    def get_fk(cls):
+        return cls.get_col_pk()
 
     @classmethod
     def get_ref_class_name(cls):
@@ -55,8 +65,14 @@ class GalleryMixin(BaseMixin):
 
 
 class GalleryItemMixin(BaseMixin):
-    name = Column(String, nullable=False)
     description = Column(Text)
+    image = Column(FileStore(path='/static/uploaded/',
+                             abspath=os.path.join(file_path, 'uploaded')))
+    image_hash = Column(CHAR(32))
+
+    @classmethod
+    def get_fk(cls):
+        return '%s.%s' % (cls.__tablename__, 'image_hash')
 
     @declared_attr
     def galleries(cls):
@@ -74,22 +90,22 @@ class GalleryItemM2MMixin(object):
     def get_item_class(cls):
         return getattr(cls, 'pyramid_sacrud_gallery_item', GalleryItemMixin)
 
+    @staticmethod
+    def __create_col_fk(ref_cls, fk_kwargs=None, **kwargs):
+        fk_kwargs = fk_kwargs or {}
+        return Column(Integer,
+                      ForeignKey(ref_cls.get_fk(), ondelete='CASCADE',
+                                 **fk_kwargs),
+                      nullable=False, **kwargs)
+
     @declared_attr
     def __tablename__(cls):
         return cls.__name__.lower()
 
     @declared_attr
     def gallery_id(cls):
-        gallery_cls = cls.get_gallery_class()
-        return Column(Integer,
-                      ForeignKey(gallery_cls.get_col_pk(),
-                                 ondelete='CASCADE'),
-                      nullable=False)
+        return cls.__create_col_fk(cls.get_gallery_class())
 
     @declared_attr
     def item_id(cls):
-        item_cls = cls.get_item_class()
-        return Column(Integer,
-                      ForeignKey(item_cls.get_col_pk(),
-                                 ondelete='CASCADE'),
-                      nullable=False)
+        return cls.__create_col_fk(cls.get_item_class())
