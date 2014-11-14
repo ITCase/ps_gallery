@@ -13,10 +13,10 @@
         <div class="gallery-detail">
             <div class="gallery-detail-title">Images from gallery "{{ gallery.name }}":</div>
             <div class="gallery-detail-list">
-                {% for image in gallery.items %}
+                {% for item in gallery.items %}
                     <div class="gallery-detail-list__item">
-                        <a href="{{ request.route_url('sacrud_gallery_item_view', pk=gallery.get_val_pk(), image=image.get_val_pk()) }}" class="gallery-detail-list__item-link">
-                            <img src="{{ image.path }}" alt="{{ image.description }}" class="gallery-detail-list__item-image">
+                        <a href="{{ request.route_url('sacrud_gallery_item_view', pk=gallery.get_val_pk(), image=item.get_val_pk()) }}" class="gallery-detail-list__item-link">
+                            <img src="{{ item.image }}" alt="{{ item.description }}" class="gallery-detail-list__item-image">
                         </a>
                     </div>
                 {% endfor %}
