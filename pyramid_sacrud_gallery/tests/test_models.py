@@ -8,48 +8,21 @@ import unittest
 
 import transaction
 
-from sqlalchemy import create_engine, Column, Integer
+from sqlalchemy import create_engine
 from sqlalchemy.exc import StatementError
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
-# in-project
-from pyramid_sacrud_gallery.mixins import (
-    GalleryMixin, GalleryItemMixin, GalleryItemM2MMixin
+from . import (
+    add_fixture,
+    Base,
+    Gallery, GalleryItem, GalleryItemM2M,
+    TEST_DATABASE_CONNECTION_STRING,
 )
 
-# in-module
-from . import TEST_DATABASE_CONNECTION_STRING, add_fixture
 
-Base = declarative_base()
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
-
-
-class Gallery(Base, GalleryMixin):
-
-    pk = Column('id', Integer, primary_key=True)
-    pyramid_sacrud_gallery_pk = 'pk'
-    pyramid_sacrud_ref_name = 'GalleryItem'
-    pyramid_sacrud_m2m_table = 'galleryitemm2m'
-
-
-class GalleryItem(Base, GalleryItemMixin):
-
-    pk = Column('id', Integer, primary_key=True)
-    pyramid_sacrud_gallery_pk = 'pk'
-
-    pyramid_sacrud_ref_name = 'Gallery'
-    pyramid_sacrud_m2m_table = 'galleryitemm2m'
-
-
-class GalleryItemM2M(GalleryItemM2MMixin, Base):
-
-    id = Column(Integer, primary_key=True)
-
-    pyramid_sacrud_gallery = Gallery
-    pyramid_sacrud_gallery_item = GalleryItem
 
 
 def add_data(session):

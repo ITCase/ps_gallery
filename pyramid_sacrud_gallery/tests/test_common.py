@@ -10,7 +10,7 @@ from pyramid_sacrud_gallery.common import (
     get_model_by_name, get_model_gallery, get_model_gallery_item
 )
 
-from .test_models import Gallery, GalleryItem, GalleryItemM2M
+from . import Gallery, GalleryItem, GalleryItemM2M
 
 
 class TestCommon(unittest.TestCase):
@@ -20,7 +20,7 @@ class TestCommon(unittest.TestCase):
         self.settings = {}
         for model in models:
             key = 'pyramid_sacrud_gallery.model_locations.%s' % model
-            value = 'pyramid_sacrud_gallery.tests.test_models:%s' % model
+            value = 'pyramid_sacrud_gallery.tests:%s' % model
             self.settings[key] = value
 
     def tearDown(self):
