@@ -11,6 +11,18 @@ from pyramid.view import view_config
 from .common import get_model_gallery, get_model_gallery_item
 
 
+@view_config(route_name='sacrud_gallery_list',
+             renderer='pyramid_sacrud_gallery/gallery_list.jinja2',
+             permission=NO_PERMISSION_REQUIRED)
+def gallery_list(request):
+    dbsession = request.dbsession
+    gallery_table = get_model_gallery(request.registry.settings)
+    gallery_list = dbsession.query(gallery_table).all()
+    return {
+        'gallery_list': gallery_list,
+    }
+
+
 @view_config(route_name='sacrud_gallery_view',
              renderer='pyramid_sacrud_gallery/gallery_detail.jinja2',
              permission=NO_PERMISSION_REQUIRED)
@@ -22,18 +34,6 @@ def gallery_view(request):
         gallery_table.get_col_pk() == pk).one()
     return {
         'gallery': gallery_instance,
-    }
-
-
-@view_config(route_name='sacrud_gallery_list',
-             renderer='pyramid_sacrud_gallery/gallery_list.jinja2',
-             permission=NO_PERMISSION_REQUIRED)
-def gallery_list(request):
-    dbsession = request.dbsession
-    gallery_table = get_model_gallery(request.registry.settings)
-    gallery_list = dbsession.query(gallery_table).all()
-    return {
-        'gallery_list': gallery_list,
     }
 
 

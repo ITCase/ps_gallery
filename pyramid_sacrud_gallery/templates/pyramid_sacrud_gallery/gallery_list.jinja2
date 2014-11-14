@@ -9,12 +9,12 @@
                     <div class="gallery-list__item-inner">
                         <a href="{{ request.route_url('sacrud_gallery_view', pk=gallery.get_val_pk()) }}" class="gallery-list__item-link">
                             <span class="gallery-list__item-image">
-                                <img src="/" alt="{{ gallery.name }}" class="gallery-list__item-image-image">
+                                <img src="{{ (gallery.items|random).image }}" alt="{{ gallery.name }}" class="gallery-list__item-image-image">
                             </span>
                             <span class="gallery-list__item-link-text">{{ gallery.name }}</span>
                         </a>
-                        <span class="gallery-list__item-desc content">Description</span>
-                        <span class="gallery-list__item-count">Count: **</span>
+                        <span class="gallery-list__item-desc content">{{ gallery.description }}</span>
+                        <span class="gallery-list__item-count">Count: {{ gallery.items | length }}</span>
                     </div>
                 </div>
             {% endfor %}
