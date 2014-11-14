@@ -24,7 +24,6 @@ def add_fixture(model, fixtures, session):
     for fixture in fixtures:
         instances.append(model(**fixture))
     session.add_all(instances)
-    return instances
 
 
 class Gallery(Base, GalleryMixin):

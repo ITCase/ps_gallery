@@ -4,6 +4,7 @@
 #
 # Distributed under terms of the MIT license.
 
+import hashlib
 import unittest
 
 import transaction
@@ -29,16 +30,25 @@ def add_data(session):
     galleries = [
         {'pk': 1, 'name': 'Best gallery'}
     ]
-    galleries = add_fixture(Gallery, galleries, session)
+    add_fixture(Gallery, galleries, session)
     items = []
+    gallery_items_m2m = []
     for x in xrange(1, 10):
+        image = 'images/%s.jpg' % x
+        image_hash = hashlib.md5(image).hexdigest()
         items.append({
             'pk': x,
-            'image': 'images/%s.jpg' % x,
-            'description': 'This is image with name "%s"' % x,
-            'galleries': galleries
+            'image': image,
+            'image_hash': image_hash,
+            'description': 'This is image with name "%s"' % x
+        })
+        gallery_items_m2m.append({
+            'id': x,
+            'gallery_id': 1,
+            'item_id': image_hash,
         })
     add_fixture(GalleryItem, items, session)
+    add_fixture(GalleryItemM2M, gallery_items_m2m, session)
 
 
 class TestGallery(unittest.TestCase):
