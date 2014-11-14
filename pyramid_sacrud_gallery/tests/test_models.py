@@ -28,7 +28,8 @@ DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 
 def add_data(session):
     galleries = [
-        {'pk': 1, 'name': 'Best gallery'}
+        {'pk': 1, 'name': 'Best gallery',
+         'description': 'Full description of gallery'}
     ]
     add_fixture(Gallery, galleries, session)
     items = []

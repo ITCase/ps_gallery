@@ -55,6 +55,7 @@ class BaseMixin(object):
 
 class GalleryMixin(BaseMixin):
     name = Column(String, nullable=False)
+    description = Column(Text)
 
     @declared_attr
     def items(cls):
