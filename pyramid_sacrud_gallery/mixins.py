@@ -56,13 +56,13 @@ class BaseMixin(object):
 class GalleryMixin(BaseMixin):
     name = Column(String, nullable=False)
 
-    def __repr__(self):
-        return self.name
-
     @declared_attr
     def items(cls):
         return relationship(cls.get_ref_class_name(),
                             secondary=cls.get_m2m_table())
+
+    def __repr__(self):
+        return self.name
 
 
 class GalleryItemMixin(BaseMixin):
@@ -81,6 +81,9 @@ class GalleryItemMixin(BaseMixin):
     def galleries(cls):
         return relationship(cls.get_ref_class_name(),
                             secondary=cls.get_m2m_table())
+
+    def __repr__(self):
+        return 'Image with hash "%s"' % self.image_hash
 
     def generate_image_hash(self, connection):
         """Generate unique 'GalleryItemMixin.image_hash'."""

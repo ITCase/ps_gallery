@@ -37,13 +37,11 @@ def add_data(session):
         image = 'images/%s.jpg' % x
         image_hash = hashlib.md5(image).hexdigest()
         items.append({
-            'pk': x,
             'image': image,
             'image_hash': image_hash,
             'description': 'This is image with name "%s"' % x
         })
         gallery_items_m2m.append({
-            'id': x,
             'gallery_id': 1,
             'item_id': image_hash,
         })
@@ -78,8 +76,11 @@ class TestGallery(unittest.TestCase):
     def test_instances_attrs(self):
         """Check attrs and methods available only for instances."""
         gallery = DBSession.query(Gallery).one()
-        self.assertEqual(gallery.__repr__(), 'Best gallery')
+        self.assertEqual(gallery.__repr__(), gallery.name)
         self.assertEqual(gallery.get_val_pk(), 1)
+
+        image = DBSession.query(GalleryItem).filter(GalleryItem.pk == 1).one()
+        self.assertIn(image.image_hash, image.__repr__())
 
     def test_mixins_fks(self):
         """Check GalleryItemM2MMixin has ForeignKeys to GalleryMixin
