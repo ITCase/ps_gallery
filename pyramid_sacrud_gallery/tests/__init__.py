@@ -6,3 +6,11 @@
 # Distributed under terms of the MIT license.
 
 TEST_DATABASE_CONNECTION_STRING = 'sqlite:///:memory:'
+
+
+def add_fixture(model, fixtures, session):
+    instances = []
+    for fixture in fixtures:
+        instances.append(model(**fixture))
+    session.add_all(instances)
+    return instances

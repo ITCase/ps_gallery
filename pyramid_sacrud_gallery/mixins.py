@@ -4,16 +4,17 @@
 #
 # Distributed under terms of the MIT license.
 
+import hashlib
 import os
+import uuid
 
+from sqlalchemy import event
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import relationship
+from sqlalchemy.orm.attributes import get_history
 from sqlalchemy.schema import Column, ForeignKey
+from sqlalchemy.sql import select
 from sqlalchemy.types import CHAR, Integer, String, Text
-
-from sacrud.exttype import FileStore
-
-file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static')
 
 
 class BaseMixin(object):
@@ -65,10 +66,12 @@ class GalleryMixin(BaseMixin):
 
 
 class GalleryItemMixin(BaseMixin):
+
+    # TODO: override 'image' field by 'sacrud.exttype.FileStore'
+
     description = Column(Text)
-    image = Column(FileStore(path='/static/uploaded/',
-                             abspath=os.path.join(file_path, 'uploaded')))
-    image_hash = Column(CHAR(32))
+    image = Column(String, nullable=False)
+    image_hash = Column(CHAR(32), unique=True, nullable=False)
 
     @classmethod
     def get_fk(cls):
@@ -78,6 +81,36 @@ class GalleryItemMixin(BaseMixin):
     def galleries(cls):
         return relationship(cls.get_ref_class_name(),
                             secondary=cls.get_m2m_table())
+
+    def generate_image_hash(self, connection):
+        """Generate unique 'GalleryItemMixin.image_hash'."""
+        image_hash = hashlib.md5(self.image).hexdigest()
+        table = self.__class__
+        check = connection.execute(
+            select([table]).where(table.image_hash == image_hash))
+        if check.fetchone() is not None:
+            return None
+        return image_hash
+
+    def generate_unique_image(self):
+        """Rename uploaded file by UUID4."""
+        file_path = os.path.split(self.image)[0]
+        file_name = os.path.split(self.image)[1]
+        file_ext = file_name.split('.')[1]
+        file_name_new = '.'.join([str(uuid.uuid4()), file_ext])
+        return os.path.join(file_path, file_name_new)
+
+
+@event.listens_for(GalleryItemMixin, 'before_insert', propagate=True)
+@event.listens_for(GalleryItemMixin, 'before_update', propagate=True)
+def event_gallery_item_change(mapper, connection, instance):
+    changed = get_history(instance, 'image').has_changes()
+    if changed:
+        image_hash = instance.generate_image_hash(connection)
+        if image_hash is None:
+            connection.close()
+        instance.image_hash = image_hash
+        instance.image = instance.generate_unique_image()
 
 
 class GalleryItemM2MMixin(object):
