@@ -1,0 +1,22 @@
+{% extends "pyramid_sacrud_gallery/base.jinja2" %}
+
+{% block content %}
+    <div class="gallery">
+        <div class="gallery-nav">
+            <div class="gallery-nav__item">
+                <a href="{{ request.route_url('sacrud_gallery_list') }}"  class="gallery-nav__item-link">List of galleries</a>
+            </div>
+            <div class="gallery-nav__separator">>></div>
+            <div class="gallery-nav__item">{{ gallery.name }}</div>
+            <div class="gallery-nav__separator">>></div>
+            <div class="gallery-nav__item">{{ image.path }}</div>
+        </div>
+        <div class="gallery-title">Redefine me in "pyramid_sacrud_gallery/gallery_item.jinja2"</div>
+        <div class="gallery-item">
+            <div class="gallery-item-title">Image from gallery "{{ gallery.name }}":</div>
+            <div class="gallery-item-image">
+                <img src="{{ image.path }}" alt="{{ image.description }}" class="gallery-item-image__image">
+            </div>
+        </div>
+    </div>
+{% endblock content %}

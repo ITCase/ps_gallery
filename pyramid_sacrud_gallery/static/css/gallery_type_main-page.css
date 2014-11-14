@@ -1,0 +1,27 @@
+
+.gallery_type_main-page
+{
+	width: auto;
+	border: solid 1px #D6D8D9;
+	padding: 0.8em 1.2em 1em 1.2em;
+	background: #F8F8FA;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	position: relative;
+}
+.gallery_type_main-page:before
+{
+	content:"";
+	position:absolute;
+	z-index:-2;
+	top:65%;
+	bottom:0px;
+	left:10px;
+	right:10px;
+	-webkit-box-shadow:0 0 20px #A0A7A9;
+	-moz-box-shadow:0 0 20px #A0A7A9;
+	 box-shadow:0 0 20px #A0A7A9;
+	-moz-border-radius:100px / 10px;
+	 border-radius:100px / 10px;
+}
