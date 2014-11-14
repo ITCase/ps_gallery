@@ -1,0 +1,22 @@
+.gallery-title
+{
+	padding: 0 0 0.5em 0;
+	color: #535353;
+	font: 1.4em Arial, Helvetica, sans-serif;
+}
+	.gallery-title__link
+	{
+		color: #008ACE;
+	}
+	.gallery-title__link:hover
+	{
+		color: #CC0000;
+	}
+	.gallery-title__link:visited
+	{
+		color: #551A8B
+	}
+	.gallery-title__link:visited:hover
+	{
+		color: #CC0000;
+	}

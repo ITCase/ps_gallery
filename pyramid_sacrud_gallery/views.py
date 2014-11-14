@@ -12,7 +12,7 @@ from .common import get_model_gallery, get_model_gallery_item
 
 
 @view_config(route_name='sacrud_gallery_view',
-             renderer='pyramid_sacrud_gallery/gallery.jinja2',
+             renderer='pyramid_sacrud_gallery/gallery_detail.jinja2',
              permission=NO_PERMISSION_REQUIRED)
 def gallery_view(request):
     dbsession = request.dbsession
@@ -26,7 +26,7 @@ def gallery_view(request):
 
 
 @view_config(route_name='sacrud_gallery_list',
-             renderer='pyramid_sacrud_gallery/index.jinja2',
+             renderer='pyramid_sacrud_gallery/gallery_list.jinja2',
              permission=NO_PERMISSION_REQUIRED)
 def gallery_list(request):
     dbsession = request.dbsession
@@ -38,7 +38,7 @@ def gallery_list(request):
 
 
 @view_config(route_name='sacrud_gallery_item_view',
-             renderer='pyramid_sacrud_gallery/image.jinja2',
+             renderer='pyramid_sacrud_gallery/gallery_item.jinja2',
              permission=NO_PERMISSION_REQUIRED)
 def gallery_item_view(request):
     dbsession = request.dbsession

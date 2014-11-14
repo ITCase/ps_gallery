@@ -1,0 +1,27 @@
+.gallery-nav
+{
+	width: auto;
+	display: table;
+	margin: 0 0 20px 0;
+}
+	.gallery-nav__item
+	{
+		color: #535353;
+		font: 0.8em Arial, Helvetica, sans-serif;
+		display: inline-block;
+	}
+		.gallery-nav__item-link
+		{
+			color: #008ace;
+		}
+		.gallery-nav__item-link:hover
+		{
+			color: #c00;
+		}
+	.gallery-nav__separator
+	{
+		color: #535353;
+		font: 0.8em Arial, Helvetica, sans-serif;
+		display: inline-block;
+		padding: 0 0.7em;
+	}

@@ -1,0 +1,32 @@
+{
+  "name": "pyramid_sacrud_gallery",
+  "title": "Pyramid Sacrud Gallery",
+  "description": "Gallery plugin for Pyramid SQLAlchemy CRUD",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ITCase/pyramid_sacrud_gallery",
+  "author": {
+    "name": "ITCase",
+    "email": "info@itcase.pro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ITCase/pyramid_sacrud_gallery.git"
+  },
+  "bugs": "https://github.com/ITCase/pyramid_sacrud_gallery/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-autoprefixer": "^1.0.1",
+    "gulp-concat": "^2.4.1",
+    "gulp-minify-css": "^0.3.11",
+    "gulp-watch": "^1.2.0"
+  }
+}

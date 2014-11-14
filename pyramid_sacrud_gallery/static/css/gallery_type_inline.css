@@ -1,0 +1,26 @@
+.gallery_list_type_inline
+{
+	position: relative;
+	display: table;
+}
+	.gallery_list_type_inline .gallery-list__item
+	{
+		width: auto;
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+	}
+		.gallery_list_type_inline .gallery-list__item-link
+		{
+			margin: 0;
+			padding: 0;
+			border: solid 1px #fff;
+		}
+		.gallery_list_type_inline .gallery-list__item-link:hover
+		{
+			border: solid 1px #ffd65e;
+		}
+			.gallery_list_type_inline .gallery-list__item-link-image
+			{
+				vertical-align: bottom;
+			}
