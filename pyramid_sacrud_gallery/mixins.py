@@ -128,9 +128,10 @@ class GalleryItemM2MMixin(object):
         return getattr(cls, 'pyramid_sacrud_gallery_item', GalleryItemMixin)
 
     @staticmethod
-    def __create_col_fk(ref_cls, fk_kwargs=None, **kwargs):
+    def __create_col_fk(ref_cls, col_type=None, fk_kwargs=None, **kwargs):
         fk_kwargs = fk_kwargs or {}
-        return Column(Integer,
+        col_type = col_type or Integer
+        return Column(col_type,
                       ForeignKey(ref_cls.get_fk(), ondelete='CASCADE',
                                  **fk_kwargs),
                       nullable=False, **kwargs)
@@ -145,4 +146,4 @@ class GalleryItemM2MMixin(object):
 
     @declared_attr
     def item_id(cls):
-        return cls.__create_col_fk(cls.get_item_class())
+        return cls.__create_col_fk(cls.get_item_class(), CHAR(32))
