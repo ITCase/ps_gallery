@@ -1,14 +1,27 @@
-var gulp = require('gulp'),
-    autoprefixer = require('gulp-autoprefixer'),
+var autoprefixer = require('gulp-autoprefixer'),
     concat = require('gulp-concat'),
+    gulp = require('gulp'),
     minifyCSS = require('gulp-minify-css'),
     watch = require('gulp-watch');
 
-var staticPath = './pyramid_sacrud_gallery/static/';
-var cssFiles = [staticPath + 'css/*.css', staticPath + 'css/**/*.css', '!' + staticPath + 'css/__gallery.css'];
+var _ = require("underscore"),
+    glob = require("glob"),
+    minimatch = require("minimatch");
+
+function getFiles(path) {
+    var files = glob.sync(path + '**/*.css');
+    target = minimatch.match(files, '__*.css', { matchBase: true });
+    ignore = _.map(target, function(item){ return '!' + item; });
+    result = files.concat(ignore);
+    return result;
+}
 
 gulp.task('css', function() {
-    gulp.src(cssFiles)
+
+    var path = glob.sync('./*/static/css/'),
+        concatFiles = getFiles(path);
+
+    gulp.src(concatFiles)
         .pipe(autoprefixer({
             browsers: [
                 'Firefox >= 3',
@@ -21,19 +34,17 @@ gulp.task('css', function() {
         }))
         .pipe(minifyCSS())
         .pipe(concat('__gallery.css'))
-        .pipe(gulp.dest(staticPath + 'css/'));
+        .pipe(gulp.dest(path + '/'));
 });
 
 gulp.task('watch', function () {
-    watch(cssFiles, function (files) {
-        cb();
-        gulp.start('css');
+
+    var path = glob.sync('./*/static/*/'),
+        watchFiles = getFiles(path);
+
+    watch(watchFiles, function (files) {
+        gulp.start('css', cb);
     });
 });
 
-gulp.task('default', function () {
-    watch(cssFiles, function (files, cb) {
-        cb();
-        gulp.start('css');
-    });
-});
+gulp.task('default', ['watch']);
