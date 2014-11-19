@@ -9,7 +9,7 @@ import os
 
 from sqlalchemy import event
 from sqlalchemy.ext.declarative import declared_attr
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref, relationship
 from sqlalchemy.orm.attributes import get_history
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.sql import select
@@ -103,31 +103,32 @@ class GalleryItemMixin(BaseMixin):
         filestore = self.__table__.columns.image.type
         return os.path.join(filestore.abspath, self.image)
 
-    def generate_image_hash(self, connection):
+    def generate_image_hash(self):
         """Generate unique 'GalleryItemMixin.image_hash'."""
         image_abspath = self.get_image_abspath()
         image_hash = hashlib.md5(image_abspath).hexdigest()
         if os.path.isfile(image_abspath):
             with open(image_abspath) as image:
                 image_hash = hashlib.md5(image.read()).hexdigest()
+        self.image_hash = image_hash
+
+    def image_exists(self, connection):
         table = self.__class__
-        check = connection.execute(
-            select([table]).where(table.image_hash == image_hash))
-        if check.fetchone() is not None:
-            return None
-        return image_hash
+        result = connection.execute(
+            select([table]).where(table.image_hash == self.image_hash)
+        ).fetchone()
+        return result
 
 
 @event.listens_for(GalleryItemMixin, 'before_insert', propagate=True)
 @event.listens_for(GalleryItemMixin, 'before_update', propagate=True)
 def event_gallery_item_change(mapper, connection, instance):
-    changed = get_history(instance, 'image').has_changes()
-    if changed:
-        image_hash = instance.generate_image_hash(connection)
-        if image_hash is None:
-            connection.close()
-            raise SacrudMessagedException('This image was uploaded earlier.')
-        instance.image_hash = image_hash
+    image_changed = get_history(instance, 'image').has_changes()
+    if image_changed:
+        instance.generate_image_hash()
+    image_existed = instance.image_exists(connection)
+    if image_changed and image_existed:
+        raise SacrudMessagedException('This image was uploaded earlier.')
 
 
 class GalleryItemM2MMixin(object):
@@ -155,8 +156,19 @@ class GalleryItemM2MMixin(object):
 
     @declared_attr
     def gallery_id(cls):
-        return cls.__create_col_fk(cls.get_gallery_class())
+        return cls.__create_col_fk(cls.get_gallery_class(), primary_key=True)
+
+    @declared_attr
+    def galleries(cls):
+        return relationship(cls.get_gallery_class(),
+                            backref=backref('gallery_m2m'))
 
     @declared_attr
     def item_id(cls):
-        return cls.__create_col_fk(cls.get_item_class(), CHAR(32))
+        return cls.__create_col_fk(cls.get_item_class(), CHAR(32),
+                                   primary_key=True)
+
+    @declared_attr
+    def items(cls):
+        return relationship(cls.get_item_class(),
+                            backref=backref('item_m2m'))
