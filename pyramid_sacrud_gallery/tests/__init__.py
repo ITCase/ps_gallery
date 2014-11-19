@@ -45,7 +45,5 @@ class GalleryItem(Base, GalleryItemMixin):
 
 class GalleryItemM2M(GalleryItemM2MMixin, Base):
 
-    id = Column(Integer, primary_key=True)
-
     pyramid_sacrud_gallery = Gallery
     pyramid_sacrud_gallery_item = GalleryItem
