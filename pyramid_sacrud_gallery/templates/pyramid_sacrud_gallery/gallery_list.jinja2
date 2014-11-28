@@ -5,18 +5,22 @@
         <div class="gallery-title">Redefine me in "pyramid_sacrud_gallery/index.jinja2"</div>
         <div class="gallery-list">
             {% for gallery in gallery_list %}
-                <div class="gallery-list__item">
-                    <div class="gallery-list__item-inner">
-                        <a href="{{ request.route_url('sacrud_gallery_view', pk=gallery.get_val_pk()) }}" class="gallery-list__item-link">
-                            <span class="gallery-list__item-image">
-                                <img src="{{ (gallery.items|random).image }}" alt="{{ gallery.name }}" class="gallery-list__item-image-image">
-                            </span>
-                            <span class="gallery-list__item-link-text">{{ gallery.name }}</span>
-                        </a>
-                        <span class="gallery-list__item-desc content">{{ gallery.description }}</span>
-                        <span class="gallery-list__item-count">Count: {{ gallery.items | length }}</span>
+                {% with gallery_items=gallery.items, gallery_items_count=gallery_items|length %}
+                    <div class="gallery-list__item">
+                        <div class="gallery-list__item-inner">
+                            <a href="{{ request.route_url('sacrud_gallery_view', pk=gallery.get_val_pk()) }}" class="gallery-list__item-link">
+                                {% if gallery_items_count %}
+                                    <span class="gallery-list__item-image">
+                                        <img src="{{ (gallery_items|random).image }}" alt="{{ gallery.name }}" class="gallery-list__item-image-image">
+                                    </span>
+                                {% endif %}
+                                <span class="gallery-list__item-link-text">{{ gallery.name }}</span>
+                            </a>
+                            <span class="gallery-list__item-desc content">{{ gallery.description }}</span>
+                            <span class="gallery-list__item-count">Count: {{ gallery_items_count }}</span>
+                        </div>
                     </div>
-                </div>
+                {% endwith %}
             {% endfor %}
         </div>
     </div>

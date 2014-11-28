@@ -89,7 +89,7 @@ class GalleryItemMixin(BaseMixin):
     @declared_attr
     def image(cls):
         upload_path = cls.get_upload_path()
-        return Column(FileStore(path='/static/upload/', abspath=upload_path))
+        return Column(FileStore(path='/static_sacrud_gallery/upload/', abspath=upload_path))
 
     @declared_attr
     def galleries(cls):

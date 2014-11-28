@@ -14,5 +14,5 @@ Assets for pyramid_sacrud_gallery
 def includeme(config):
     config.include('pyramid_jinja2')
     config.add_jinja2_search_path('pyramid_sacrud_gallery:templates')
-    config.add_static_view('/static_sacrud_gallery',
+    config.add_static_view('static_sacrud_gallery',
                            'pyramid_sacrud_gallery:static')
