@@ -6,7 +6,9 @@
 # Distributed under terms of the MIT license.
 
 from pyramid.security import NO_PERMISSION_REQUIRED
+from pyramid.httpexceptions import HTTPNotFound
 from pyramid.view import view_config
+from sqlalchemy.orm.exc import NoResultFound
 
 from .common import get_model_gallery, get_model_gallery_item
 
@@ -46,13 +48,16 @@ def gallery_item_view(request):
     image = request.matchdict['image']
     gallery_table = get_model_gallery(request.registry.settings)
     gallery_item_table = get_model_gallery_item(request.registry.settings)
-    gallery_instance_with_item = dbsession.query(
-        gallery_table, gallery_item_table
-    ).filter(
-        gallery_table.get_col_pk() == pk
-    ).filter(
-        gallery_item_table.get_col_pk() == image
-    ).one()
+    try:
+        gallery_instance_with_item = dbsession.query(
+            gallery_table, gallery_item_table
+        ).filter(
+            gallery_table.get_col_pk() == pk
+        ).filter(
+            gallery_item_table.get_col_pk() == image
+        ).one()
+    except NoResultFound:
+        raise HTTPNotFound
     return {
         'gallery': gallery_instance_with_item[0],
         'image': gallery_instance_with_item[1],

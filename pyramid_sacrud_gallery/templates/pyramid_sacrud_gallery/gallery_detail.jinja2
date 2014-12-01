@@ -1,5 +1,11 @@
 {% extends "pyramid_sacrud_gallery/base.jinja2" %}
 
+{% block popup_content %}
+    <div class="popup-inner__content-fotorama">
+        <img src="" class="popup-inner__content-fotorama-image" />
+    </div>
+{% endblock popup_content %}
+
 {% block content %}
     <div class="gallery">
         <div class="gallery-nav">
@@ -12,13 +18,29 @@
         <div class="gallery-title">Redefine me in "pyramid_sacrud_gallery/gallery.jinja2"</div>
         <div class="gallery-detail">
             <div class="gallery-detail-title">Images from gallery "{{ gallery.name }}":</div>
-            <div class="gallery-detail-list">
+            <div class="gallery-detail-list fotorama"
+                 data-width="100%"
+                 data-ratio="16/9"
+                 data-height="460"
+                 data-minwidth="440"
+                 data-maxwidth="100%"
+                 data-maxheight="250"
+                 data-thumbwidth="90"
+                 data-thumbheight="60"
+                 data-fit="contain"
+                 data-loop="true"
+                 data-click="false"
+                 data-swipe="false"
+                 data-nav="thumbs">
                 {% for item in gallery.items %}
-                    <div class="gallery-detail-list__item">
-                        <a href="{{ request.route_url('sacrud_gallery_item_view', pk=gallery.get_val_pk(), image=item.get_val_pk()) }}" class="gallery-detail-list__item-link">
+                    <a href="{{ item.image }}" class="gallery-detail-list__item">
+                        <div class="gallery-detail-list__item-link">
                             <img src="{{ item.image }}" alt="{{ item.description }}" class="gallery-detail-list__item-image">
-                        </a>
-                    </div>
+                        </div>
+                    </a>
+                    {# <a href="{{ request.route_url('sacrud_gallery_item_view', pk=gallery.get_val_pk(), image=item.get_val_pk()) }}" class="gallery-detail-list__item-link">
+                            <img src="{{ item.image }}" alt="{{ item.description }}" class="gallery-detail-list__item-image">
+                    </a> #}
                 {% endfor %}
             </div>
         </div>

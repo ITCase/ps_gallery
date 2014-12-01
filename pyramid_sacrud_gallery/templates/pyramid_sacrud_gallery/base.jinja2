@@ -7,7 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link href="{{ request.static_url('pyramid_sacrud_gallery:static/bower_components/fotorama/fotorama.css') }}" rel="stylesheet">
     <link href="{{ request.static_url('pyramid_sacrud_gallery:static/css/__gallery.css') }}" rel="stylesheet" />
+
+    <script src="{{ request.static_url('pyramid_sacrud_gallery:static/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ request.static_url('pyramid_sacrud_gallery:static/bower_components/fotorama/fotorama.js') }}"></script>
 </head>
 
 <body>
