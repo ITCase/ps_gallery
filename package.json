@@ -22,7 +22,27 @@
   "engines": {
     "node": ">= 0.8.0"
   },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browser": {
+    "jquery": "./bower_components/jquery/dist/jquery.js",
+    "forotama": "./bower_components/fotorama/fotorama.js"
+  },
+  "browserify-shim": {
+    "jquery": {
+      "exports": "$"
+    },
+    "fotorama": {
+      "exports": "fotorama",
+      "depends": "jquery"
+    }
+  },
   "devDependencies": {
+    "browserify": "^6.3.4",
+    "browserify-shim": "^3.8.0",
     "glob": "^4.1.3",
     "gulp": "^3.8.10",
     "gulp-autoprefixer": "^1.0.1",
@@ -30,6 +50,7 @@
     "gulp-minify-css": "^0.3.11",
     "gulp-watch": "^1.2.0",
     "minimatch": "^1.0.0",
-    "underscore": "^1.7.0"
+    "underscore": "^1.7.0",
+    "vinyl-source-stream": "^1.0.0"
   }
 }

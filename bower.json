@@ -2,10 +2,10 @@
   "name": "pyramid_sacrud_gallery",
   "version": "0.0.1",
   "homepage": "https://github.com/ITCase/pyramid_sacrud_gallery",
-  "authors": [],
-  "description": "Fotogallery for pyramid_sacrud",
+  "description": "pyramid_sacrud_gallery",
   "moduleType": [
-    "amd"
+    "amd",
+    "node"
   ],
   "keywords": [
     "SQALchemy",
@@ -14,13 +14,6 @@
     "Gallery"
   ],
   "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
   "dependencies": {
     "fotorama": "~4.6.2"
   }
