@@ -19,7 +19,6 @@ function getFiles(path) {
     return result;
 }
 
-
 gulp.task('browserify', function() {
     browserify('./pyramid_sacrud_gallery/static/js/gallery.js', { debug: false })
         .bundle()
