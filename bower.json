@@ -15,6 +15,35 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "jquery": "",
     "fotorama": "~4.6.2"
+  },
+  "overrides": {
+    "BOWER-PACKAGE": {
+      "jquery": {
+        "development": [
+          "./bower_components/jquery/dist/jquery.js",
+          "./bower_components/jquery/dist/jquery.min.map",
+        ],
+        "production": [
+          "./bower_components/jquery/dist/jquery.min.js",
+          "./bower_components/jquery/dist/jquery.min.map",
+        ],
+      },
+      "fotorama": {
+        "development": [
+          "./bower_components/fotorama/fotorama.js",
+          "./bower_components/fotorama/fotorama.png",
+          "./bower_components/fotorama/fotorama@2x.png",
+          "./bower_components/fotorama/fotorama.css",
+        ],
+        "production": [
+          "./bower_components/fotorama/fotorama.js",
+          "./bower_components/fotorama/fotorama.png",
+          "./bower_components/fotorama/fotorama@2x.png",
+          "./bower_components/fotorama/fotorama.css",
+        ],
+      }
+    }
   }
 }

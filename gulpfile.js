@@ -2,6 +2,7 @@ var autoprefixer = require('gulp-autoprefixer'),
     concat = require('gulp-concat'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
+    mainBowerFiles = require('main-bower-files'),
     minifyCSS = require('gulp-minify-css'),
     watch = require('gulp-watch');
 
@@ -28,6 +29,11 @@ gulp.task('browserify', function() {
         })
         .pipe(source('__gallery.js'))
         .pipe(gulp.dest('./pyramid_sacrud_gallery/static/js/'));
+});
+
+gulp.task('bower', function() {
+    gulp.src(mainBowerFiles(), { base: './bower_components' })
+        .pipe(gulp.dest('./pyramid_sacrud_gallery/test222/'));
 });
 
 gulp.task('css', function() {
